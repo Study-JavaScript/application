@@ -7,7 +7,7 @@ abstract class UseCaseBase {
     constructor(protected userRepository: UserRepository){}
 }
 export class CreateUser extends UseCaseBase {
-    async execute(userData: {email:string, name?: string}): Promise<User> {
+    async execute(userData: {email:string, name?: string, password:string}): Promise<User> {
         return this.userRepository.create(userData);
     }
 }

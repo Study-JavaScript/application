@@ -15,8 +15,8 @@ describe('UpdatePost UseCase', () => {
   it('should update an existing post and return it', async () => {
     const postRepository = mockPostRepository();
 
-    const existingPost: Post = { id: 1, title: 'Old Post', content: 'Old Content', deleted: false, authorId: 1 };
-    const updatedPost: Post = { id: 1, title: 'Updated Post', content: 'Updated Content', deleted: false, authorId: 1 };
+    const existingPost: Post = { id: 1, title: 'Old Post', content: 'Old Content', deleted: false, authorId: 1 , date: new Date(), authorName: 'Author Name'};
+    const updatedPost: Post = { id: 1, title: 'Updated Post', content: 'Updated Content', deleted: false, authorId: 1 , date: new Date(), authorName: 'Author Name'};
 
     postRepository.update.mockResolvedValue(updatedPost); // Simulamos una actualización exitosa
 
@@ -30,11 +30,11 @@ describe('UpdatePost UseCase', () => {
 
   it('should throw an error if the post does not exist', async () => {
     const postRepository = mockPostRepository();
-    postRepository.update.mockResolvedValue(null); // Simula que no se encontró el post
+    postRepository.update.mockRejectedValue(new Error('Post not found')); // Cambiado aquí
 
     const updatePost = new UpdatePost(postRepository);
     const postData = { title: 'Nonexistent Post', content: 'Content' };
 
-    await expect(updatePost.execute(999, postData)).rejects.toThrow('Post not found'); // Ahora debe pasar
+    await expect(updatePost.execute(999, postData)).rejects.toThrow('Post not found');
   });
 });

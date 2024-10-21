@@ -15,8 +15,8 @@ describe('CreatePost UseCase', () => {
   it('should create a new post and return it', async () => {
     const postRepository = mockPostRepository();
 
-    const postData = { title: 'New Post', content: 'Content of the post' };
-    const newPost: Post = { id: 1, title: 'New Post', content: 'Content of the post', deleted: false, authorId: 1 };
+    const postData = { title: 'New Post', content: 'Content of the post', authorName: 'Author Name' };
+    const newPost: Post = { id: 1, title: 'New Post', content: 'Content of the post', deleted: false, authorId: 1, date: new Date(), authorName: 'Author Name' };
 
     postRepository.create.mockResolvedValue(newPost);
 

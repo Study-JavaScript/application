@@ -1,4 +1,4 @@
-import { PostRepository } from "../../../application/repositories/post";
+import { PostData, PostRepository, PostUpdateData } from "../../../application/repositories/post";
 import { Post } from "../../../domain/entities/post";
 
 // ⚠️🖊️ Se ha de manejar correctamente el uso de post.deleted ya que los test nos lo requiere y solo seria necesario en el update
@@ -9,7 +9,7 @@ abstract class UseCaseBase {
 }
 
 export class CreatePost extends UseCaseBase {
-    async execute(postData: Omit<Post, "id"|"deleted"|"authorId">, userId: number): Promise<Post> {
+    async execute(postData: PostData, userId: number): Promise<Post> {
         return this.postRepository.create(postData, userId);
     }
 }
@@ -19,9 +19,14 @@ export class ReadAllPosts extends UseCaseBase {
         return this.postRepository.readAll();
     }
 }
+export class ReadById extends UseCaseBase {
+    async execute(id: number): Promise<Post|null> {
+        return this.postRepository.readById(id);
+    }
+}
 
 export class UpdatePost extends UseCaseBase {
-    async execute(id: number, postData: Partial<Post>): Promise<Post> {
+    async execute(id: number, postData: PostUpdateData): Promise<Post> {
         const updatedPost = await this.postRepository.update(id, postData);
         if (!updatedPost) {
             throw new Error('Post not found'); // Manejo del error

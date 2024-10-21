@@ -16,8 +16,8 @@ describe('ReadAllPosts UseCase', () => {
     const postRepository = mockPostRepository();
 
     const mockPosts: Post[] = [
-      { id: 1, title: 'Post 1', content: 'Content 1', deleted: false, authorId: 1 },
-      { id: 2, title: 'Post 2', content: 'Content 2', deleted: false, authorId: 1 },
+      { id: 1, title: 'Post 1', content: 'Content 1', deleted: false, authorId: 1 , date: new Date(), authorName: 'Author Name'},
+      { id: 2, title: 'Post 2', content: 'Content 2', deleted: false, authorId: 1 , date: new Date(), authorName: 'Author Name'},
     ];
     postRepository.readAll.mockResolvedValue(mockPosts);
 
