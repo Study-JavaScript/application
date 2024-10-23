@@ -9,6 +9,7 @@ const mockPostRepository = (): jest.Mocked<PostRepository> => ({
   readAll: jest.fn(),
   update: jest.fn(),
   delete: jest.fn(),
+  readById: jest.fn(),
 });
 
 describe('ReadAllPosts UseCase', () => {

@@ -27,7 +27,7 @@ describe('CreateUser UseCase', () => {
 
     const createUser = new CreateUser(userRepository);
 
-    const userData = { email: 'test@example.com', name: 'Test User' };
+    const userData = { email: 'test@example.com', name: 'Test User', password: 'password123' };
     const result = await createUser.execute(userData);
 
     expect(userRepository.create).toHaveBeenCalledWith(userData);
